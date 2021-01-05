@@ -42,13 +42,11 @@ do
 	byteL=0x${pwdMd5:i*4:2}
 	byteH=0x${pwdMd5:(i*4)+2:2}
 
-	#printf "%02x %02x\n" $byteH $byteL
 	
 	declare -i x=$(($byteL+$byteH))
 	declare -i xMod=$(($x%0x3e))
 	
-	#printf "%02x\n" $xMod
-	
+		
 	if (($xMod < 0x09)); then 
 		xMod=$(($xMod + 0x30))
 	elif (($xMod >= 0x09 && $xMod < 0x0a)); then
@@ -59,8 +57,7 @@ do
 		xMod=$(($xMod + 0x3d))
 	fi
 	
-
-	#printf "%02x " $xMod;
+	
 	ipcHash+=$(printf "\x$(printf %x $xMod)")
 done
 
